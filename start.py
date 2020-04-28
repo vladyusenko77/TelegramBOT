@@ -5,7 +5,7 @@ from telebot import types
 import telebot
 import random
 
-
+# test push
 __URL = "https://api.covid19api.com/summary"
 db_object = db_manager(host, user, passwd, __URL, token)
 covid_19_data = db_object.get_all_data()
