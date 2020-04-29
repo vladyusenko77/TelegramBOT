@@ -26,7 +26,7 @@ class db_coron():
 
     def vyvid(self, vyb_Country, con, coc):
         cor = db_object.vyvid_corona()
-        return cor
+        # return cor
         # for item in cor:
         #     if vyb_Country == 0 and con == "0" and coc == "0":
         #         print("======================================================")
@@ -64,3 +64,4 @@ class db_coron():
         #         print("NewRecovered => \t", item[8])
         #         print("TotalRecovered => \t", item[9])
         #         print("======================================================")
+        return cor

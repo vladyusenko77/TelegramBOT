@@ -28,12 +28,13 @@ class db_manager():
     def save_all_data(self, data):
         # print("save_all_data => ", data)
         self.__cursor.execute("CREATE DATABASE IF NOT EXISTS SASHA_19;")
-        self.__cursor.execute("USE COVID_19;")
+        self.__cursor.execute("USE SASHA_19;")
         self.__cursor.execute(
             "CREATE TABLE IF NOT EXISTS CORON (id INT AUTO_INCREMENT PRIMARY KEY, Country VARCHAR(255),CountryCode VARCHAR(255), Slug VARCHAR(255), NewConfirmed INT(10), TotalConfirmed INT(10),NewDeaths INT(10),TotalDeaths INT(10),NewRecovered INT(10),TotalRecovered INT(10))")
     # ================ Заповнення бази =================
 
     def add_corona(self, Country, CountryCode, Slug, NewConfirmed, TotalConfirmed, NewDeaths, TotalDeaths, NewRecovered, TotalRecovered):
+        print("add_corona")
         sql = "INSERT INTO CORON (Country, CountryCode, Slug, NewConfirmed, TotalConfirmed, NewDeaths, TotalDeaths, NewRecovered, TotalRecovered ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)"
         val = (Country, CountryCode, Slug, NewConfirmed, TotalConfirmed,
                NewDeaths, TotalDeaths, NewRecovered, TotalRecovered)
@@ -42,17 +43,18 @@ class db_manager():
     # ================ Очистка бази =================
 
     def dell_corona(self):
-        sql = "DELETE FROM `CORON`"
+        print("dell_corona")
+        sql = "DELETE FROM CORON "
         self.__cursor.execute(sql)
         self.__db.commit()
     # ================ Вивід з бази =================
 
     def vyvid_corona(self):
-        sql = "SELECT * FROM `coron` "
+        print("vyvid_corona")
+        sql = "SELECT * FROM CORON "
         self.__cursor.execute(sql)
-        for item in self.__cursor.fetchall():
-            print(item)
-        return self.__cursor.fetchall()
+        retu = self.__cursor.fetchall()
+        return retu
         # for item in self.__cursor.fetchall():
         #     print(item)
     # ================ Вивід з бази по назві країни =================
