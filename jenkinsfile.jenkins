@@ -15,7 +15,7 @@ pipeline  {
             steps {
                 echo 'Creating docker image ...'
                 dir('.'){
-                    sh "docker build -t kosmos666/teleBOT ."
+                    sh "docker build -t kosmos666/telebot ."
                 }
             }
         }
