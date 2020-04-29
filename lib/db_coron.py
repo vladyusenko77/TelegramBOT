@@ -7,6 +7,7 @@ db_object.save_all_data(covid_19_data)
 
 
 class db_coron():
+    # ================ Заповнення бази =================
     def zap(self, covid_19_data):
         db_object.dell_corona()
         for item in covid_19_data["Countries"]:
@@ -21,6 +22,7 @@ class db_coron():
             TotalRecovered = item["TotalRecovered"]
             db_object.add_corona(Country, CountryCode, Slug, NewConfirmed, TotalConfirmed,
                                  NewDeaths, TotalDeaths, NewRecovered, TotalRecovered)
+    # ================ Вивід бази =================
 
     def vyvid(self, vyb_Country, con, coc):
         cor = db_object.vyvid_corona()

@@ -5,7 +5,7 @@ from telebot import types
 import telebot
 import random
 
-# test push d
+
 __URL = "https://api.covid19api.com/summary"
 db_object = db_manager(host, user, passwd, __URL, token)
 covid_19_data = db_object.get_all_data()
@@ -14,7 +14,7 @@ coron_db = db_coron()
 
 bot = telebot.TeleBot(token)
 
-
+# =================== Нижня клава =======================
 @bot.message_handler(commands=["start"])
 def keyboard(message):
     sti = open('image/AnimatedSticker.tgs', 'rb')
@@ -22,19 +22,20 @@ def keyboard(message):
     key = types.ReplyKeyboardMarkup(resize_keyboard=True)
     item1 = types.KeyboardButton("☠️ COVID 19 ☠️")
     item2 = types.KeyboardButton("☠️ UPDATE COVID 19 ☠️")
-    key.add(item1, item2)
+    item3 = types.KeyboardButton("☠️ Dell BD ☠️")
+    key.add(item1, item2, item3)
 
     bot.send_message(message.chat.id, "Добро пожаловать, {0.first_name}!\nЯ - <b>{1.first_name}</b>, бот созданный чтобы облегчить вам жизнь.".format(
         message.from_user, bot.get_me()), parse_mode='html', reply_markup=key)
 
-
+# ======================= Перевірка нижньої клави ====================
 @bot.message_handler(content_types=['text'])
 def Klava(message):
     if message.chat.type == 'private':
         if message.text == '☠️ UPDATE COVID 19 ☠️':
-            bot.send_message(message.chat.id, str(random.randint(0, 100)))
+            coron_db.zap(covid_19_data)
         elif message.text == '☠️ COVID 19 ☠️':
-
+            # =================== Клава повідомленнь ==================
             markup = types.InlineKeyboardMarkup(row_width=2)
             item1 = types.InlineKeyboardButton(
                 "🌏 Дані всіх країн 🌏", callback_data='global')
@@ -45,10 +46,13 @@ def Klava(message):
 
             bot.send_message(
                 message.chat.id, '\t🙏 Вибери Щось 🙏', reply_markup=markup)
+        elif message.text == '☠️ Dell BD ☠️':
+            db_object.dell_corona()
+        # ======================== Вивід країни по назві =============================
         vyb_Country = 0
         con = "0"
         coc = "0"
-        coron_db.zap(covid_19_data)
+        # coron_db.zap(covid_19_data)
         cor = coron_db.vyvid(vyb_Country, con, coc)
         for item in cor:
             if message.text == item[1]:
@@ -61,23 +65,7 @@ def Klava(message):
         else:
             bot.send_message(message.chat.id, 'ОК 😢')
 
-
-# @bot.message_handler(content_types=['text'])
-# def krain(message):
-#     vyb_Country = 0
-#     con = "0"
-#     coc = "0"
-#     coron_db.zap(covid_19_data)
-#     cor = coron_db.vyvid(vyb_Country, con, coc)
-#     for item in cor:
-#         if message.text == item[1]:
-#             bot.send_message(message.chat.id, "=================================\n"+"\n⬇️💩Країна💩⬇️ \n     " + str(item[1]) + "\n⬇️🥵Кількість захворюваннь за добу🥵⬇️ \n     " + str(
-#                 item[4]) + "\n⬇️🥵Кількість захворюваннь🥵⬇️ \n     " + str(item[5]) + "\n⬇️☠️Кількість смертей за добу☠️⬇️\n     " + str(item[6]) + "\n⬇️☠️Кількість смертей☠️⬇️\n      " + str(item[7]) + "\n⬇️💊Кількість вилікуваних за добу💊⬇️\n     " + str(item[8]) + "\n⬇️💊Кількість вилікуваних💊⬇️\n     " + str(item[9]) + "\n=================================\n")
-#         elif message.text == item[2]:
-#             bot.send_message(message.chat.id, "=================================\n"+"\n⬇️💩Країна💩⬇️ \n     " + str(item[1]) + "\n⬇️🥵Кількість захворюваннь за добу🥵⬇️ \n     " + str(
-#                 item[4]) + "\n⬇️🥵Кількість захворюваннь🥵⬇️ \n     " + str(item[5]) + "\n⬇️☠️Кількість смертей за добу☠️⬇️\n     " + str(item[6]) + "\n⬇️☠️Кількість смертей☠️⬇️\n      " + str(item[7]) + "\n⬇️💊Кількість вилікуваних за добу💊⬇️\n     " + str(item[8]) + "\n⬇️💊Кількість вилікуваних💊⬇️\n     " + str(item[9]) + "\n=================================\n")
-
-
+# ======================== Перевірка клави повідомлення ============================
 @bot.callback_query_handler(func=lambda call: True)
 def callback_inline(call):
     try:
@@ -86,23 +74,19 @@ def callback_inline(call):
                 vyb_Country = 0
                 con = "0"
                 coc = "0"
-                coron_db.zap(covid_19_data)
+                # coron_db.zap(covid_19_data)
                 cor = coron_db.vyvid(vyb_Country, con, coc)
                 for item in cor:
                     bot.send_message(call.message.chat.id, "=================================\n"+"\n⬇️💩Країна💩⬇️ \n     " + str(item[1]) + "\n⬇️🥵Кількість захворюваннь за добу🥵⬇️ \n     " + str(
                         item[4]) + "\n⬇️🥵Кількість захворюваннь🥵⬇️ \n     " + str(item[5]) + "\n⬇️☠️Кількість смертей за добу☠️⬇️\n     " + str(item[6]) + "\n⬇️☠️Кількість смертей☠️⬇️\n      " + str(item[7]) + "\n⬇️💊Кількість вилікуваних за добу💊⬇️\n     " + str(item[8]) + "\n⬇️💊Кількість вилікуваних💊⬇️\n     " + str(item[9]) + "\n=================================\n")
 
             elif call.data == 'one':
+                # db_object.dell_corona()
                 bot.send_message(call.message.chat.id,
                                  "Введіть країну!!!")
 
-            # remove inline buttons
             bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Дані відправлено!",
                                   reply_markup=None)
-
-            # # show alert
-            # bot.answer_callback_query(callback_query_id=call.id, show_alert=False,
-            #                           text="ЭТО ТЕСТОВОЕ УВЕДОМЛЕНИЕ!!11")
 
     except Exception as e:
         print(repr(e))
