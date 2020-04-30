@@ -58,7 +58,7 @@ pipeline  {
            steps {
                echo " ============== removing all docker images =================="
                sh '''
-               docker rmi kosmos666/telebot -f
+               docker rmi $(docker images -q)
                '''
            }
         }
