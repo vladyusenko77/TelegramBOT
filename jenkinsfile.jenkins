@@ -54,9 +54,17 @@ pipeline  {
                '''
            }
         }
+        stage("docker remove images") {
+           steps {
+               echo " ============== removing all docker images =================="
+               sh '''
+               docker rmi kosmos666/telebot -f
+               '''
+           }
+        }
         stage("docker run") {
            steps {
-               echo " ============== starting chatterbox =================="
+               echo " ============== starting TeleBOT =================="
                sh '''
                docker run -d --restart=always --name telepy kosmos666/telebot
                '''
