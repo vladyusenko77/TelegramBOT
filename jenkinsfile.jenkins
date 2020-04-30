@@ -38,30 +38,30 @@ pipeline  {
                '''
            }
         }
-        //stage("docker stop") {
-        //    steps {
-        //        echo " ============== stoping all images =================="
-        //        sh '''
-        //        docker stop chatterbox
-        //        '''
-        //    }
-        //} 
-        //stage("docker remove") {
-        //    steps {
-        //        echo " ============== removing all docker containers =================="
-        //        sh '''
-        //        docker rm chatterbox
-        //        '''
-        //    }
-        //}
-        //stage("docker run") {
-        //    steps {
-        //        echo " ============== starting chatterbox =================="
-        //        sh '''
-        //        docker run -d --restart=always --name chatterbox -p 3000:3000 macnaer/chatterbox
-        //        '''
-        //    }
-        //}
+        stage("docker stop") {
+           steps {
+               echo " ============== stoping all containers =================="
+               sh '''
+               docker stop telepy
+               '''
+           }
+        } 
+        stage("docker remove") {
+           steps {
+               echo " ============== removing all docker containers =================="
+               sh '''
+               docker rm telepy
+               '''
+           }
+        }
+        stage("docker run") {
+           steps {
+               echo " ============== starting chatterbox =================="
+               sh '''
+               docker run -d --restart=always --name telepy kosmos666/telebot
+               '''
+           }
+        }
         // stage("Deploy to stage server") {
         //     steps {
         //         echo " ============== Running playbook =================="
