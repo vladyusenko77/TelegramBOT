@@ -62,14 +62,14 @@ pipeline  {
                '''
            }
         }
-        stage("docker run") {
-           steps {
-               echo " ============== starting TeleBOT =================="
-               sh '''
-               docker run -d --restart=always --name telepy kosmos666/telebot
-               '''
-           }
-        }
+        //stage("docker run") {
+         //  steps {
+           //    echo " ============== starting TeleBOT =================="
+             //  sh '''
+               //docker run -d --restart=always --name telepy kosmos666/telebot
+               //'''
+          // }
+        //}
         // stage("Deploy to stage server") {
         //     steps {
         //         echo " ============== Running playbook =================="
