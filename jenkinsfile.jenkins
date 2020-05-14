@@ -1,7 +1,8 @@
 #!groovy
 //  groovy Jenkinsfile
-properties([disableConcurrentBuilds()])
 
+
+properties([disableConcurrentBuilds()])
 pipeline  {
     agent { 
         label 'master'
@@ -15,11 +16,10 @@ pipeline  {
             steps {
                 echo 'Creating docker image ...'
                 dir('.'){
-                    sh "docker build -t kosmos666/telebot ."
+                    sh "docker build -t yusenko/yusenko.r.v . "
                 }
             }
         }
-         
         stage("docker login") {
            steps {
                echo " ============== docker login =================="
@@ -34,7 +34,7 @@ pipeline  {
            steps {
                echo " ============== pushing image =================="
                sh '''
-               docker push kosmos666/telebot:latest
+               docker push yusenko/yusenko.r.v:latest
                '''
            }
         }
@@ -42,7 +42,7 @@ pipeline  {
            steps {
                echo " ============== stoping all containers =================="
                sh '''
-               docker stop telepy
+               docker stop telebot_remote
                '''
            }
         } 
@@ -50,10 +50,10 @@ pipeline  {
            steps {
                echo " ============== removing all docker containers =================="
                sh '''
-               docker rm telepy
+               docker rm telebot_remote
                '''
            }
-        }
+        } 
         stage("docker remove images") {
            steps {
                echo " ============== removing all docker images =================="
@@ -62,14 +62,14 @@ pipeline  {
                '''
            }
         }
-        //stage("docker run") {
-         //  steps {
-           //    echo " ============== starting TeleBOT =================="
-             //  sh '''
-               //docker run -d --restart=always --name telepy kosmos666/telebot
-               //'''
-          // }
-        //}
+        // stage("docker run") {
+        //    steps {
+        //        echo " ============== starting chatterbox =================="
+        //        sh '''
+        //        docker run -d --restart=always --name telebot_remote  yusenko/yusenko.r.v
+        //        '''
+        //    }
+        // }
         // stage("Deploy to stage server") {
         //     steps {
         //         echo " ============== Running playbook =================="
