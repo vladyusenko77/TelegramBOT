@@ -16,14 +16,14 @@ pipeline  {
             steps {
                 echo 'Creating docker image ...'
                 dir('.'){
-                    sh "docker build -t yusenko/yusenko.r.v . "
+                    sh "docker build -t yusenko/vlad007 . "
                 }
             }
         }
         stage("docker login") {
            steps {
                echo " ============== docker login =================="
-               withCredentials([usernamePassword(credentialsId: 'DockerHub-Credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+               withCredentials([usernamePassword(credentialsId: 'DockerHub-Credeialnts', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                    sh '''
                    docker login -u $USERNAME -p $PASSWORD
                    '''
@@ -34,34 +34,34 @@ pipeline  {
            steps {
                echo " ============== pushing image =================="
                sh '''
-               docker push yusenko/yusenko.r.v:latest
+               docker push yusenko/vlad007:latest
                '''
            }
         }
-        stage("docker stop") {
-           steps {
-               echo " ============== stoping all containers =================="
-               sh '''
-               docker stop telebot_remote
-               '''
-           }
-        } 
-        stage("docker remove") {
-           steps {
-               echo " ============== removing all docker containers =================="
-               sh '''
-               docker rm telebot_remote
-               '''
-           }
-        } 
-        stage("docker remove images") {
-           steps {
-               echo " ============== removing all docker images =================="
-               sh '''
-               docker rmi $(docker images -q)
-               '''
-           }
-        }
+        // stage("docker stop") {
+        //    steps {
+        //        echo " ============== stoping all containers =================="
+        //        sh '''
+        //        docker stop telebot_remote
+        //        '''
+        //    }
+        // } 
+        // stage("docker remove") {
+        //    steps {
+        //        echo " ============== removing all docker containers =================="
+        //        sh '''
+        //        docker rm telebot_remote
+        //        '''
+        //    }
+        // } 
+        // stage("docker remove images") {
+        //    steps {
+        //        echo " ============== removing all docker images =================="
+        //        sh '''
+        //        docker rmi $(docker images -q)
+        //        '''
+        //    }
+        // }
         // stage("docker run") {
         //    steps {
         //        echo " ============== starting chatterbox =================="
