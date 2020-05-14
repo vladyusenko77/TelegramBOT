@@ -4,6 +4,7 @@ from lib.settings import *
 from telebot import types
 import telebot
 import random
+from datetime import datetime
 
 
 __URL = "https://api.covid19api.com/summary"
@@ -94,7 +95,11 @@ def callback_inline(call):
         print(repr(e))
 
 
-bot.polling(none_stop=True)
+if __name__ == "__main__":
+    print("[" + str(datetime.now()) + "] Running...")
+    bot.infinity_polling(True)
+
+#bot.polling(none_stop=True)
 
 # @bot.message_handler(content_types=["text"])
 # def main(message):

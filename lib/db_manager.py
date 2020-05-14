@@ -27,8 +27,8 @@ class db_manager():
 
     def save_all_data(self, data):
         # print("save_all_data => ", data)
-        self.__cursor.execute("CREATE DATABASE IF NOT EXISTS SASHA_19;")
-        self.__cursor.execute("USE SASHA_19;")
+        self.__cursor.execute("CREATE DATABASE IF NOT EXISTS COVID-VLAD;")
+        self.__cursor.execute("USE COVID-VLAD;")
         self.__cursor.execute(
             "CREATE TABLE IF NOT EXISTS CORON (id INT AUTO_INCREMENT PRIMARY KEY, Country VARCHAR(255),CountryCode VARCHAR(255), Slug VARCHAR(255), NewConfirmed INT(10), TotalConfirmed INT(10),NewDeaths INT(10),TotalDeaths INT(10),NewRecovered INT(10),TotalRecovered INT(10))")
     # ================ Заповнення бази =================

@@ -1,11 +1,9 @@
 import os
-# host = "52.255.162.235"
-# user = "wordpress"
-# passwd = "wordpress"
-# token = "1221686129:AAE5LMMmpaOJUkf-JR8TTiXvSMJDM1bxrmM"
 host = os.environ['DB_HOST']
 user = os.environ['DB_USER']
-# passwd = ""
 passwd = os.environ['DB_PASSWORD']
-#token = "1221686129:AAE5LMMmpaOJUkf-JR8TTiXvSMJDM1bxrmM"
 token = os.environ['TELEGRAM_TOKEN']
+# token = "1142079773:AAHLjpko8HY8f_IvIi3IrZAX6s88oJRacfg"
+# host = "13.49.21.219"
+# user = "root"
+# passwd = "my-secret-pass"
